@@ -2,8 +2,9 @@ import fs from 'fs';
 import fetch from 'node-fetch';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import secrets from './secrets.js';
 
-const session = "53616c7465645f5f7f9dbfcc954f820567453fb098db7aef14f614ac37620bee485dbdb4d2a7d96668406d3c3dc95ca4";
+const session = secrets.session_cookie;
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const day = process.argv[2];
