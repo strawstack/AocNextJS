@@ -2,15 +2,18 @@
 This repo is a template for AdventOfCode built with NextJS.
 
 ## How to Use
+
 cd scripts
 
-run node makeDay.js [day_number]
+create secrets file contianing `session_cookie`
 
-visit localhost:3000 to see a list of available days
+run `node makeDay.js [day_number]`
 
-open pages/d[day_number]/p[part_number].js and visit localhost:3000/d1/p1
+visit `localhost:3000` to see a list of available days
 
-open the browser console and observe that your solution code is run when the file is modified and saved
+open `pages/d[day_number]/p[part_number].js` and visit `localhost:3000/d1/p1`
+
+open the browser console and observe that your solution code is run when the given solution file is modified and saved
 
 ---
 
