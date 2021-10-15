@@ -1,5 +1,5 @@
 # aoc next js
-This repo is a template for AdventOfCode built with NextJS. It is able to automatically download the input file and create template code for a give day. Once a day is generated it will automatically show in the directory at `localhost:3000`. One can visit, for example, `localhost:3000/d1/p1` to view the solution for a given day. During development one can open the browser console and view console.logs from their code whenever their file is saved. 
+This repo is a template for AdventOfCode built with NextJS. It is able to automatically download the input file and create template code for a give day. Once a day is generated it will automatically show in the directory at `localhost:3000`. One can visit, for example, `localhost:3000/d1/p1` to view the solution for a day 1 part 1. During development one can open the browser console and view console.logs from their code whenever their file is saved. 
 
 ## How to Use
 
