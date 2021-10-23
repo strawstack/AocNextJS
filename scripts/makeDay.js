@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 import secrets from './secrets.js';
 
 const session = secrets.session_cookie;
+const YEAR = 2015;
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const day = process.argv[2];
@@ -30,7 +31,7 @@ fs.writeFileSync(path.join(PATH, 'p2.js'), day_js_p2);
 fs.writeFileSync(path.join(PATH, 'P1.module.css'), day_css_p1);
 fs.writeFileSync(path.join(PATH, 'P2.module.css'), day_css_p2);
 
-fetch(`https://adventofcode.com/2015/day/${day}/input`, {
+fetch(`https://adventofcode.com/${YEAR}/day/${day}/input`, {
     "headers": {
         "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
         "accept-language": "en-US,en;q=0.9,la;q=0.8",
