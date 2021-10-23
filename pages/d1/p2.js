@@ -1,23 +1,23 @@
 import React from 'react';
-import styles from './TEMPLATE.module.css';
+import styles from './P2.module.css';
 import data from './input.txt';
 import * as utils from '../../utils/utils.js';
 
 const p = (v) => console.log(v);
 
-export default function TEMPLATE() {
-    let [ans, setAns] = React.useState(`TEMPLATE`);
+export default function P2() {
+    let [ans, setAns] = React.useState(`P2`);
     React.useEffect(function solution() {
         console.clear();
         
         // code solution here
-        p(`TEMPLATE`);
+        p(`P2`);
         p(data);
         
-        setAns(`TEMPLATE`);
+        setAns(`P2`);
     });
 
     return (
-        <div className={styles.TEMPLATE}>{ans}</div>
+        <div className={styles.P2}>{ans}</div>
     );
 }

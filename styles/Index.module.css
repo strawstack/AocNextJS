@@ -1,16 +1,16 @@
-.Home {
+.Index {
     height: 100%;
     background: #555;
     padding: 30px;
     font-size: 2rem;
     color: white;
 }
-.Home>a {
+.Index>a {
     text-decoration: none;
     color: white;
     display: block;
 }
-.Home>a:hover {
+.Index>a:hover {
     cursor: pointer;
     color: salmon;
     font-weight: bold;

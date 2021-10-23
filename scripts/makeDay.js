@@ -9,8 +9,8 @@ const session = secrets.session_cookie;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const day = process.argv[2];
 
-const template_day_js = fs.readFileSync('template_day.js').toString('utf-8');
-const template_day_css = fs.readFileSync('template_day.css').toString('utf-8');
+const template_day_js = fs.readFileSync(path.join(__dirname, 'template_day.js')).toString('utf-8');
+const template_day_css = fs.readFileSync(path.join(__dirname, 'template_day.css')).toString('utf-8');
 
 const day_js_p1 = template_day_js.replace(/TEMPLATE/g, "P1");
 const day_js_p2 = template_day_js.replace(/TEMPLATE/g, "P2");
@@ -53,7 +53,7 @@ fetch(`https://adventofcode.com/2015/day/${day}/input`, {
     })
     .then(res => {
         res.text().then(data => {
-            fs.writeFileSync(path.join(PATH, 'input.js'), `const data="${data.replace(/\n/g, "\\n")}"; export default data;`);
+            fs.writeFileSync(path.join(PATH, 'input.txt'), data);
         });
     })
     .catch(e => {
