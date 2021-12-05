@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 import secrets from './secrets.js';
 
 const session = secrets.session_cookie;
-const YEAR = 2015;
+const YEAR = 2021;
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const day = process.argv[2];
