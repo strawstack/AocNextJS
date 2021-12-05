@@ -5,6 +5,7 @@ import * as utils from '../../utils/utils.js';
 
 const p = (v) => console.log(v);
 
+// Return true or false if card has five in a row or column
 function checkCard(card, cardLookup) {
     let rows = [0,0,0,0,0];
     let cols = [0,0,0,0,0];
@@ -23,6 +24,7 @@ function checkCard(card, cardLookup) {
     return false;
 }
 
+// Return the sum of all unchecked number of card
 function getUncheckedSum(card, cardLookup) {
     let total = 0;
     for (let r = 0; r < card.length; r++) {
@@ -40,9 +42,9 @@ export default function P1() {
     React.useEffect(function solution() {
         console.clear();
 
-        let lst = data.split("\n\n").map(x => x.split("\n"));
+        let lst = data.split("\n\n").map(x => x.trim().split("\n"));
         let numbers = lst[0][0].split(",").map(x => parseInt(x));
-        let cards = lst.slice(1).map(x => x.map(y => y.split(/\s+/).map(z => parseInt(z))));
+        let cards = lst.slice(1).map(x => x.map(y => y.trim().split(/\s+/).map(z => parseInt(z))));
 
         let cardLookup = [];
         for (let i = 0; i < 100; i++) {
@@ -67,8 +69,6 @@ export default function P1() {
                 }
             }
         }
-
-        p(numberLookup);
 
         let sol = () => {
             for (let call of numbers) {
