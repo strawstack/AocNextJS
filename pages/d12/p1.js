@@ -23,11 +23,11 @@ function dfs(edgeList, visited, node) {
 
     if (node === "end") {
         totalPathCount += 1;
-    }
-
-    for (let adjNode of edgeList[node]) {
-        let copyVisited = copy(visited);
-        dfs(edgeList, copyVisited, adjNode);
+    } else {
+        for (let adjNode of edgeList[node]) {
+            let copyVisited = copy(visited);
+            dfs(edgeList, copyVisited, adjNode);
+        }
     }
 
     return;
