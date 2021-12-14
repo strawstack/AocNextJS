@@ -1,0 +1,15 @@
+.P2 {
+    background: #555;
+    height: 100%;
+    padding: 30px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+}
+
+.DIV {
+    background: salmon;
+    height: 20px;
+    width: 20px;
+    position: absolute; 
+}
