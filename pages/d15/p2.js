@@ -4,7 +4,7 @@ import data from './input.txt';
 //import data from './testinput.txt';
 import * as utils from '../../utils/utils.js';
 
-let heap = require('./heap.js'); 
+let heap = require('./heap.js');
 
 const p = (v) => console.log(v);
 
