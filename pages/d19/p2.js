@@ -164,6 +164,16 @@ export default function P2() {
             }
         }
 
+        let otherLocs = [{x: 0, y: 0, z: 0}];
+
+        // For all sensors
+        for (let s = 1; s < sensors.length; s++) {
+            let tp = applySeriesOfTransforms(beaconTraslation, paths[0][s], {x: 0, y: 0, z: 0});
+            otherLocs.push(tp);
+        }
+
+        p(otherLocs)
+
         let mostFar = -1;
         for (let s1 = 0; s1 < sensors.length; s1++) {
             for (let s2 = 0; s2 < sensors.length; s2++) {
@@ -173,9 +183,17 @@ export default function P2() {
             }
         }
 
+        let mostFar2 = -1;
+        for (let s1 = 0; s1 < sensors.length; s1++) {
+            for (let s2 = 0; s2 < sensors.length; s2++) {
+                if (s1 === s2) { continue; }
+                mostFar2 = Math.max(mostFar2, getMagnitued(otherLocs[s1], otherLocs[s2]));
+            }
+        }
+
         // 18675 to high
         // 18073 to high
-        p(mostFar)
+        p(mostFar2)
         
     });
 
