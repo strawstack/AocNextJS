@@ -9,7 +9,7 @@ const p = (v) => console.log(v);
 let stateLookup = {};
 
 // All outcomes that can result from rolling three 3-sided die
-let outcomes;
+let outcomes = getThreeDiceOutcomes();
 
 export default function P2() {
     let [ans, setAns] = React.useState(`P2`);
@@ -20,37 +20,14 @@ export default function P2() {
         let pos = data.split("\n").map(x => parseInt(x.split(": ")[1]));
         
         // debug
-        pos = [4, 8];
+        //pos = [4, 8];
 
-        // Calculate possible outcomes
-        outcomes = getThreeDiceOutcomes();
-
-        p(outcomes)
-
-        // Init recursive query to play all games 
+        let p1_score = 0;
+        let p2_score = 0;
         let turn = 0;
-        let startState = [pos[0], 0, pos[1], 0, turn];
-        let result = play(startState); // dfs by the way
+        let [w1, w2] = play(pos[0], p1_score, pos[1], p2_score, turn);
 
-        // 55893788 - too low
-        // 1509132276 - too low
-        p(Math.max(...result));
-
-        let p1_debug_answer = 444356092776315;
-        let p2_debug_answer = 341960390180808;
-        if (p1_debug_answer === result[0] && p2_debug_answer === result[1]) {
-            p("Correct! You get a star *");
-
-        } else {
-            if (result[0] < p1_debug_answer) {
-                p("too low");
-                p(p1_debug_answer - result[0]);
-
-            } else {
-                p("too high");
-                p(result[0] - p1_debug_answer);
-            }
-        }
+        p(Math.max(w1, w2));
 
     });
 
@@ -62,16 +39,14 @@ export default function P2() {
 // Play forward from a given state
 // Exit as soon as possible
 // Path is history of states
-function play([p1_pos, p1_score, p2_pos, p2_score, turn]) {
-    let sh = stateHash([p1_pos, p1_score, p2_pos, p2_score, turn]);
+function play(pos1, p1_score, pos2, p2_score, turn) {
 
-    // We've been here before, and we know the results
+    let sh = stateHash(pos1, p1_score, pos2, p2_score, turn);
+
     if (sh in stateLookup) {
-        let result = stateLookup[sh];
-        return result;
+        return stateLookup[sh];
     }
 
-    // A player has won in this state
     if (p1_score >= 21) {
         return [1, 0];
     }
@@ -79,40 +54,39 @@ function play([p1_pos, p1_score, p2_pos, p2_score, turn]) {
         return [0, 1];
     }
 
-    let totalResults = [0, 0];
-
-    // For every possible outcome
+    let w1 = 0;
+    let w2 = 0;
     for (let rollValue in outcomes) {
         let times = outcomes[rollValue];
+        let rollNumber = parseInt(rollValue);
 
-        if (turn === 0) { // p1 turn 
+        if (turn === 0) {
+            
+            let npos1 = ((pos1 + rollNumber - 1) % 10) + 1;
+            let np1_score = p1_score + npos1;
+            
+            let [fw1, fw2] = play(npos1, np1_score, pos2, p2_score, 1);
+            
+            w1 = w1 + times * fw1;
+            w2 = w2 + times * fw2;
 
-            let p1_newPos = ((p1_pos + rollValue - 1) % 10) + 1;
-            let p1_newScore = p1_score + p1_newPos;
-
-            let result = play([p1_newPos, p1_newScore, p2_pos, p2_score, 1]);
-
-            totalResults[0] = (totalResults[0] + result[0] * times);
-            totalResults[1] = (totalResults[1] + result[1] * times);
-
-        } else { // p2 turn
-
-            let p2_newPos = ((p2_pos + rollValue - 1) % 10) + 1;
-            let p2_newScore = p2_score + p2_newPos;
-
-            let result = play([p1_pos, p1_score, p2_newPos, p2_newScore, 0]);
-
-            totalResults[0] = (totalResults[0] + result[0] * times);
-            totalResults[1] = (totalResults[1] + result[1] * times);
-
+        } else {
+            let npos2 = ((pos2 + rollNumber - 1) % 10) + 1;
+            let np2_score = p2_score + npos2;
+            
+            let [fw1, fw2] = play(pos1, p1_score, npos2, np2_score, 0);
+            
+            w1 = w1 + times * fw1;
+            w2 = w2 + times * fw2;
         }
     }
 
-    stateLookup[sh] = [...totalResults];
-    return [...totalResults];
+    stateLookup[sh] = [w1, w2];
+    return [w1, w2];
+
 }
 
-function stateHash([p1_pos, p1_score, p2_pos, p2_score, turn]) {
+function stateHash(p1_pos, p1_score, p2_pos, p2_score, turn) {
     return `${p1_pos}:${p1_score}:${p2_pos}:${p2_score}:${turn}`;
 }
 

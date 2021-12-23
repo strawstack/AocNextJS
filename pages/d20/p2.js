@@ -8,6 +8,7 @@ const p = (v) => console.log(v);
 
 export default function P2() {
     let [ans, setAns] = React.useState(`P2`);
+    let canvas = React.useRef();
     React.useEffect(function solution() {
         console.clear();
         
@@ -61,11 +62,42 @@ export default function P2() {
         // 5958 incorrect
         p(total)
 
+        p(`minRow: ${minRow}, maxRow: ${maxRow}, minCol: ${minCol}, maxCol: ${maxCol}`);
+
+        let ctx = canvas.current.getContext("2d");
+        
+        let offset = {r: 50, c: 50};
+        ctx.fillStyle = "FFFFFF";
+
+        for (let r = minRow; r <= maxRow; r++) {
+            for (let c = minCol; c <= maxCol; c++) {
+                let coord = {r, c};
+                if (hash(coord) in inputImageLookup) {
+                    let char = inputImageLookup[hash(coord)];
+                    if (char === "#") {
+                        let ar = coord.r + offset.c;
+                        let ac = coord.c + offset.c;
+                        ctx.fillRect(ac, ar, 1, 1);
+                    }
+                }
+            }
+        }
+
+        //drawLine(ctx, {r: 0, c: 0}, {r: 10, c: 10});
+
     });
 
     return (
-        <div className={styles.P2}>{ans}</div>
+        <div className={styles.P2}>
+            <canvas className={styles.Canvas} ref={canvas} width={"300px"} height={"300px"}></canvas>
+        </div>
     );
+}
+
+function drawLine(ctx, from, to) {
+    ctx.moveTo(from.x, from.y);
+    ctx.lineTo(to.x, to.y);
+    ctx.stroke();
 }
 
 function hash(coord) {
