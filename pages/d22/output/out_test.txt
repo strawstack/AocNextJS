@@ -1,0 +1,21 @@
+Volume[RegionDifference[RegionIntersection[Region[
+        Cuboid[
+            {10,10,10},
+            {13,13,13}
+        ]
+    ],Region[
+        Cuboid[
+            {11,11,11},
+            {14,14,14}
+        ]
+    ],Region[
+        Cuboid[
+            {10,10,10},
+            {11,11,11}
+        ]
+    ]], RegionIntersection[Region[
+        Cuboid[
+            {9,9,9},
+            {12,12,12}
+        ]
+    ]]]]
